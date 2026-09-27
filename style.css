@@ -2653,7 +2653,151 @@ body {
 #ai-coach-insight-text {
   font-size: 0.84rem;
   color: var(--text-secondary);
-  line-height: 1.5;
+/* ==========================================================================
+   WORKFLOW TEMPLATES & ENHANCEMENTS
+   ========================================================================== */
+
+/* Templates Sidebar Button */
+.templates-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.65rem;
+  padding: 0.65rem 0.95rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  margin-bottom: 0.75rem;
+  color: #facc15;
+  background: rgba(234, 179, 8, 0.08);
+  border: 1px solid rgba(234, 179, 8, 0.2);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  width: 100%;
+}
+
+.templates-btn:hover {
+  background: rgba(234, 179, 8, 0.16);
+  border-color: rgba(234, 179, 8, 0.4);
+  transform: translateY(-1px);
+}
+
+.templates-btn .key-hint {
+  margin-left: auto;
+  font-size: 0.7rem;
+  padding: 0.1rem 0.4rem;
+  background: rgba(234, 179, 8, 0.15);
+  border: 1px solid rgba(234, 179, 8, 0.3);
+  color: #facc15;
+  border-radius: 4px;
+}
+
+/* Quote Row in Productivity Card */
+.prod-quote-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.quote-refresh-btn {
+  width: 22px;
+  height: 22px;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.quote-refresh-btn:hover {
+  background: var(--bg-surface-hover);
+  color: var(--accent-primary);
+}
+
+/* Templates Modal */
+.modal-medium {
+  max-width: 640px;
+}
+
+.templates-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.templates-sub {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.templates-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.template-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: left;
+}
+
+.template-card:hover {
+  border-color: var(--accent-primary);
+  background: var(--bg-surface-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.template-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.template-icon {
+  font-size: 1.35rem;
+}
+
+.template-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.template-desc {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.35;
+}
+
+.template-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--border-subtle);
+  font-size: 0.72rem;
+}
+
+.template-badge {
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.template-steps-count {
+  color: var(--accent-primary);
+  font-weight: 700;
 }
 
 /* --- RESPONSIVE MEDIA QUERIES --- */

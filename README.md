@@ -59,6 +59,7 @@ Switch seamlessly between 3 specialized views to match your workflow:
 | Key | Action |
 | --- | --- |
 | `N` | Open New Task Dialog |
+| `T` | Open Workflow Templates |
 | `Ctrl + K` or `/` | Focus Search Bar |
 | `L` | Switch to List View |
 | `B` | Switch to Kanban Board View |

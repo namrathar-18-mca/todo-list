@@ -98,6 +98,110 @@ const SAMPLE_TASKS = [
   }
 ];
 
+const MOTIVATIONAL_QUOTES = [
+  "Stay focused, conquer your day!",
+  "Small daily disciplines compound into massive victories.",
+  "Deep focus is a superpower. Protect your attention.",
+  "Action cures anxiety. Tackle the top priority first.",
+  "Done is better than perfect. Build momentum today!",
+  "Your future self will thank you for today's effort.",
+  "One task at a time, with absolute intentionality.",
+  "Momentum starts with a single step. You've got this!"
+];
+
+const TASK_TEMPLATES = [
+  {
+    id: "tpl-morning",
+    icon: "☕",
+    title: "Morning Deep Work & Daily Standup Kickoff",
+    desc: "Hydrate, set top 3 Most Important Tasks, update team, and start first focus block.",
+    category: "Work",
+    priority: "high",
+    estimatedTime: "45m",
+    subtasks: [
+      "Drink 500ml water & quick stretch",
+      "Write down top 3 MITs for today",
+      "Post daily standup updates to team",
+      "Complete first 45m deep focus sprint"
+    ]
+  },
+  {
+    id: "tpl-bug",
+    icon: "🐛",
+    title: "Bug Triage & Root Cause Fix",
+    desc: "Isolate issue, replicate in local development, fix regression, and write tests.",
+    category: "Projects",
+    priority: "urgent",
+    estimatedTime: "60m",
+    subtasks: [
+      "Reproduce bug with minimal test payload",
+      "Inspect network requests and console errors",
+      "Implement patch in feature branch",
+      "Add regression test and verify build passes"
+    ]
+  },
+  {
+    id: "tpl-sprint",
+    icon: "🚀",
+    title: "Sprint Planning & Milestone Review",
+    desc: "Align upcoming sprint goals, estimate points, and groom backlog items.",
+    category: "Projects",
+    priority: "high",
+    estimatedTime: "45m",
+    subtasks: [
+      "Review velocity and completed tickets",
+      "Groom backlog tickets & assign story points",
+      "Commit sprint deliverables & milestone dates",
+      "Communicate roadmap updates to stakeholders"
+    ]
+  },
+  {
+    id: "tpl-workout",
+    icon: "⚡",
+    title: "Full Body Strength & Core Conditioning",
+    desc: "Warmup mobility, compound strength lifts, core circuit, and cool-down.",
+    category: "Health",
+    priority: "medium",
+    estimatedTime: "50m",
+    subtasks: [
+      "Dynamic joint mobility warmup (8 mins)",
+      "Main compound movement sets (3x8)",
+      "High-intensity core & plank circuit",
+      "Post-workout hydration & protein intake"
+    ]
+  },
+  {
+    id: "tpl-shutdown",
+    icon: "🌅",
+    title: "End-of-Day Shutdown & Tomorrow Planning",
+    desc: "Close open tabs, log focus minutes, review completed items, and prepare desk.",
+    category: "Personal",
+    priority: "low",
+    estimatedTime: "15m",
+    subtasks: [
+      "Review and check off completed tasks",
+      "Log total focus minutes for today",
+      "Clear desktop and open browser tabs",
+      "Pick #1 priority task for tomorrow morning"
+    ]
+  },
+  {
+    id: "tpl-errands",
+    icon: "🛒",
+    title: "Weekly Household Essentials & Meal Prep",
+    desc: "Stock up groceries, organize pantry, prep meals for the work week.",
+    category: "Personal",
+    priority: "medium",
+    estimatedTime: "60m",
+    subtasks: [
+      "Inventory pantry and fridge staples",
+      "Order or pick up fresh produce & grains",
+      "Wash and chop vegetables for quick cooking",
+      "Batch prep 3 lunches into containers"
+    ]
+  }
+];
+
 // ==========================================
 // 2. STATE MANAGER
 // ==========================================
@@ -547,6 +651,13 @@ const dom = {
   importJsonFile: document.getElementById('import-json-file'),
   resetSampleBtn: document.getElementById('reset-sample-btn'),
 
+  // Templates modal
+  openTemplatesBtn: document.getElementById('open-templates-btn'),
+  templatesModal: document.getElementById('templates-modal'),
+  closeTemplatesBtn: document.getElementById('close-templates-btn'),
+  templatesGrid: document.getElementById('templates-grid'),
+  refreshQuoteBtn: document.getElementById('refresh-quote-btn'),
+
   // Toast & Confetti
   toastContainer: document.getElementById('toast-container'),
   confettiCanvas: document.getElementById('confetti-canvas')
@@ -566,6 +677,7 @@ function initApp() {
   dom.inlineDate.value = getFormattedOffsetDate(0);
   switchViewMode(state.viewMode, false);
   renderAll();
+  renderTemplatesGrid();
   bindEventListeners();
   initPomodoroTimer();
 }
@@ -2160,6 +2272,82 @@ function escapeHTML(str) {
 }
 
 // ==========================================
+// 19B. WORKFLOW TEMPLATES & QUOTES SYSTEM
+// ==========================================
+
+function openTemplatesModal() {
+  renderTemplatesGrid();
+  dom.templatesModal.classList.remove('hidden');
+}
+
+function closeTemplatesModal() {
+  dom.templatesModal.classList.add('hidden');
+}
+
+function renderTemplatesGrid() {
+  dom.templatesGrid.innerHTML = '';
+  TASK_TEMPLATES.forEach(tpl => {
+    const card = document.createElement('div');
+    card.className = 'template-card';
+    card.setAttribute('data-template-id', tpl.id);
+    card.innerHTML = `
+      <div class="template-header">
+        <span class="template-icon">${tpl.icon}</span>
+        <span class="template-title">${escapeHTML(tpl.title)}</span>
+      </div>
+      <p class="template-desc">${escapeHTML(tpl.desc)}</p>
+      <div class="template-meta">
+        <span class="template-badge">${tpl.category} • ${tpl.priority.toUpperCase()}</span>
+        <span class="template-steps-count">${tpl.subtasks.length} steps (${tpl.estimatedTime})</span>
+      </div>
+    `;
+    dom.templatesGrid.appendChild(card);
+  });
+}
+
+function applyTemplate(templateId) {
+  const tpl = TASK_TEMPLATES.find(t => t.id === templateId);
+  if (!tpl) return;
+
+  const newTask = {
+    id: `zenith-${Date.now()}`,
+    title: tpl.title,
+    description: tpl.desc,
+    category: tpl.category,
+    priority: tpl.priority,
+    status: 'todo',
+    dueDate: getFormattedOffsetDate(0),
+    completed: false,
+    completedAt: null,
+    starred: true,
+    estimatedTime: tpl.estimatedTime,
+    focusSessions: 0,
+    subtasks: tpl.subtasks.map((step, idx) => ({
+      id: `sub-${Date.now()}-${idx}`,
+      title: step,
+      completed: false
+    })),
+    createdAt: new Date().toISOString()
+  };
+
+  state.tasks.unshift(newTask);
+  state.saveTasks();
+  sounds.playAdd();
+  closeTemplatesModal();
+  renderAll();
+  populatePomodoroTaskDropdown();
+  showToast(`⚡ Inserted "${tpl.title.slice(0, 30)}..." template!`, false);
+}
+
+function shuffleMotivationalQuote() {
+  const current = dom.prodQuote.textContent;
+  const filtered = MOTIVATIONAL_QUOTES.filter(q => q !== current);
+  const nextQuote = filtered[Math.floor(Math.random() * filtered.length)] || MOTIVATIONAL_QUOTES[0];
+  dom.prodQuote.textContent = nextQuote;
+  sounds.playPop();
+}
+
+// ==========================================
 // 20. EVENT LISTENERS & DELEGATION
 // ==========================================
 
@@ -2467,6 +2655,18 @@ function bindEventListeners() {
     }
   });
 
+  // Workflow Templates Modal & Quote Shuffle
+  dom.openTemplatesBtn.addEventListener('click', openTemplatesModal);
+  dom.closeTemplatesBtn.addEventListener('click', closeTemplatesModal);
+  dom.refreshQuoteBtn.addEventListener('click', shuffleMotivationalQuote);
+
+  dom.templatesGrid.addEventListener('click', (e) => {
+    const card = e.target.closest('.template-card');
+    if (!card) return;
+    const tplId = card.dataset.templateId;
+    if (tplId) applyTemplate(tplId);
+  });
+
   // Close modals on clicking backdrop
   window.addEventListener('click', (e) => {
     if (e.target === dom.taskModal) closeTaskModal();
@@ -2474,6 +2674,7 @@ function bindEventListeners() {
     if (e.target === dom.backupModal) dom.backupModal.classList.add('hidden');
     if (e.target === dom.pomodoroModal) dom.pomodoroModal.classList.add('hidden');
     if (e.target === dom.analyticsModal) dom.analyticsModal.classList.add('hidden');
+    if (e.target === dom.templatesModal) closeTemplatesModal();
   });
 
   // Global Keyboard Shortcuts
@@ -2486,6 +2687,7 @@ function bindEventListeners() {
       dom.backupModal.classList.add('hidden');
       dom.pomodoroModal.classList.add('hidden');
       dom.analyticsModal.classList.add('hidden');
+      closeTemplatesModal();
       closeSidebar();
       return;
     }
@@ -2502,6 +2704,12 @@ function bindEventListeners() {
       if (e.key.toLowerCase() === 'n') {
         e.preventDefault();
         openTaskModal();
+        return;
+      }
+      // 'T' -> Templates Modal
+      if (e.key.toLowerCase() === 't') {
+        e.preventDefault();
+        openTemplatesModal();
         return;
       }
       // 'L' -> List View
