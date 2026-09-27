@@ -803,6 +803,63 @@
     </div>
   </div>
 
+  <!-- KEYBOARD SHORTCUTS HELP MODAL -->
+  <div class="kbd-modal-overlay hidden" id="shortcuts-modal" role="dialog" aria-modal="true" aria-labelledby="kbd-modal-title">
+    <div class="kbd-modal">
+      <div class="kbd-modal-header">
+        <div class="kbd-modal-title-wrap">
+          <i class="ph-bold ph-keyboard"></i>
+          <h2 id="kbd-modal-title">Keyboard Shortcuts</h2>
+        </div>
+        <button class="kbd-modal-close" id="close-shortcuts-btn" aria-label="Close shortcuts panel">
+          <i class="ph-bold ph-x"></i>
+        </button>
+      </div>
+      <div class="kbd-modal-body">
+        <div class="kbd-section">
+          <h3 class="kbd-section-title">General</h3>
+          <ul class="kbd-list">
+            <li><span class="kbd-desc">Open this help panel</span><span class="kbd-keys"><kbd>?</kbd></span></li>
+            <li><span class="kbd-desc">Focus quick-add input</span><span class="kbd-keys"><kbd>N</kbd></span></li>
+            <li><span class="kbd-desc">Open new task modal</span><span class="kbd-keys"><kbd>Ctrl</kbd><kbd>K</kbd></span></li>
+            <li><span class="kbd-desc">Close modal / overlay</span><span class="kbd-keys"><kbd>Esc</kbd></span></li>
+            <li><span class="kbd-desc">Toggle dark / light theme</span><span class="kbd-keys"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>D</kbd></span></li>
+          </ul>
+        </div>
+        <div class="kbd-section">
+          <h3 class="kbd-section-title">Views</h3>
+          <ul class="kbd-list">
+            <li><span class="kbd-desc">Switch to List view</span><span class="kbd-keys"><kbd>1</kbd></span></li>
+            <li><span class="kbd-desc">Switch to Kanban view</span><span class="kbd-keys"><kbd>2</kbd></span></li>
+            <li><span class="kbd-desc">Switch to Matrix view</span><span class="kbd-keys"><kbd>3</kbd></span></li>
+          </ul>
+        </div>
+        <div class="kbd-section">
+          <h3 class="kbd-section-title">Productivity</h3>
+          <ul class="kbd-list">
+            <li><span class="kbd-desc">Start / pause Pomodoro timer</span><span class="kbd-keys"><kbd>Ctrl</kbd><kbd>P</kbd></span></li>
+            <li><span class="kbd-desc">Open analytics dashboard</span><span class="kbd-keys"><kbd>Ctrl</kbd><kbd>A</kbd></span></li>
+            <li><span class="kbd-desc">Search tasks</span><span class="kbd-keys"><kbd>Ctrl</kbd><kbd>F</kbd></span></li>
+          </ul>
+        </div>
+        <div class="kbd-section">
+          <h3 class="kbd-section-title">Tasks</h3>
+          <ul class="kbd-list">
+            <li><span class="kbd-desc">Mark selected task complete</span><span class="kbd-keys"><kbd>Space</kbd></span></li>
+            <li><span class="kbd-desc">Delete selected task</span><span class="kbd-keys"><kbd>Del</kbd></span></li>
+            <li><span class="kbd-desc">Edit selected task</span><span class="kbd-keys"><kbd>Enter</kbd></span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="kbd-modal-footer">
+        <span>Press <kbd class="kbd-inline">?</kbd> anywhere to toggle</span>
+        <button class="kbd-modal-close" id="close-shortcuts-footer-btn" style="margin-left:auto">
+          <i class="ph-bold ph-x"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- TOAST NOTIFICATION CONTAINER -->
   <div class="toast-container" id="toast-container" aria-live="polite"></div>
 

@@ -2910,3 +2910,193 @@ body {
   }
 }
 
+/* ==========================================================================
+   KEYBOARD SHORTCUTS HELP MODAL
+   ========================================================================== */
+
+.kbd-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: kbdFadeIn 0.2s ease;
+}
+
+.kbd-modal-overlay.hidden {
+  display: none !important;
+}
+
+@keyframes kbdFadeIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.kbd-modal {
+  background: var(--surface-2, #1e293b);
+  border: 1px solid var(--border, rgba(255,255,255,0.08));
+  border-radius: 20px;
+  width: min(680px, 94vw);
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,255,255,0.05);
+}
+
+.kbd-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border, rgba(255,255,255,0.08));
+  background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(168,85,247,0.06));
+}
+
+.kbd-modal-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary, #f1f5f9);
+}
+
+.kbd-modal-title-wrap i {
+  font-size: 1.25rem;
+  color: var(--accent-primary, #818cf8);
+}
+
+.kbd-modal-close {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--border, rgba(255,255,255,0.08));
+  border-radius: 8px;
+  color: var(--text-secondary, #94a3b8);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.kbd-modal-close:hover {
+  background: rgba(239,68,68,0.15);
+  color: #f87171;
+  border-color: rgba(239,68,68,0.3);
+}
+
+.kbd-modal-body {
+  overflow-y: auto;
+  padding: 1.25rem 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+@media (max-width: 520px) {
+  .kbd-modal-body { grid-template-columns: 1fr; }
+}
+
+.kbd-section-title {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-primary, #818cf8);
+  margin-bottom: 0.65rem;
+}
+
+.kbd-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.kbd-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+  transition: background 0.15s;
+}
+
+.kbd-list li:hover {
+  background: rgba(255,255,255,0.04);
+}
+
+.kbd-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary, #94a3b8);
+  flex: 1;
+}
+
+.kbd-keys {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.kbd-list kbd,
+.kbd-inline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 7px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text-primary, #f1f5f9);
+  min-width: 26px;
+  text-align: center;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.3);
+  white-space: nowrap;
+}
+
+.kbd-modal-footer {
+  border-top: 1px solid var(--border, rgba(255,255,255,0.08));
+  padding: 0.85rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.78rem;
+  color: var(--text-muted, #64748b);
+}
+
+/* Shortcut FAB trigger button in topbar */
+#kbd-help-btn {
+  background: rgba(129, 140, 248, 0.1);
+  border: 1px solid rgba(129, 140, 248, 0.25);
+  border-radius: 8px;
+  color: var(--accent-primary, #818cf8);
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  flex-shrink: 0;
+}
+
+#kbd-help-btn:hover {
+  background: rgba(129, 140, 248, 0.22);
+  box-shadow: 0 0 14px rgba(129, 140, 248, 0.3);
+  transform: translateY(-1px);
+}
