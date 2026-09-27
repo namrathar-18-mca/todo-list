@@ -52,6 +52,13 @@
         <kbd class="key-hint">N</kbd>
       </button>
 
+      <!-- Quick Templates Trigger -->
+      <button class="btn-subtle templates-btn" id="open-templates-btn" title="Quick Task Templates (T)">
+        <i class="ph-bold ph-lightning"></i>
+        <span>Templates</span>
+        <kbd class="key-hint">T</kbd>
+      </button>
+
       <!-- Navigation & Views -->
       <div class="sidebar-section">
         <span class="section-label">VIEWS</span>
@@ -125,7 +132,12 @@
         <div class="progress-bar-wrapper">
           <div class="progress-fill" id="sidebar-progress-fill" style="width: 0%"></div>
         </div>
-        <p class="prod-subtitle" id="prod-quote">Stay focused, conquer your day!</p>
+        <div class="prod-quote-row">
+          <p class="prod-subtitle" id="prod-quote">Stay focused, conquer your day!</p>
+          <button class="icon-btn-mini quote-refresh-btn" id="refresh-quote-btn" title="New motivational quote">
+            <i class="ph ph-arrows-clockwise"></i>
+          </button>
+        </div>
       </div>
 
       <!-- Sidebar Footer Controls -->
@@ -696,6 +708,10 @@
           <kbd>N</kbd>
         </div>
         <div class="shortcut-row">
+          <span>Open Workflow Templates</span>
+          <kbd>T</kbd>
+        </div>
+        <div class="shortcut-row">
           <span>Focus Search</span>
           <kbd>Ctrl</kbd> + <kbd>K</kbd> / <kbd>/</kbd>
         </div>
@@ -766,6 +782,22 @@
           <button class="danger-outline-btn" id="reset-sample-btn">
             <i class="ph-bold ph-arrow-counter-clockwise"></i> Reset Sample Data
           </button>
+        </div>
+      </div>
+    </div>
+  <!-- TASK TEMPLATES MODAL -->
+  <div class="modal-backdrop hidden" id="templates-modal" role="dialog" aria-modal="true" aria-labelledby="templates-heading">
+    <div class="modal-card modal-medium">
+      <div class="modal-header">
+        <h3 id="templates-heading"><i class="ph-bold ph-lightning"></i> Workflow Templates</h3>
+        <button class="icon-btn modal-close-btn" id="close-templates-btn" aria-label="Close templates dialog">
+          <i class="ph ph-x"></i>
+        </button>
+      </div>
+      <div class="templates-body">
+        <p class="templates-sub">Pick a pre-configured productivity workflow to instantly populate structured goals with checklist steps.</p>
+        <div class="templates-grid" id="templates-grid">
+          <!-- Dynamically populated via JS -->
         </div>
       </div>
     </div>
