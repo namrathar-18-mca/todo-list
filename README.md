@@ -89,3 +89,7 @@ Then navigate to `http://localhost:8080` in your web browser.
 - **Vanilla CSS3:** Custom CSS variables, Glassmorphism backdrop-filters, CSS Grid, Flexbox, Keyframe animations.
 - **Vanilla JavaScript (ES6+):** Object-oriented state management, Web Audio API, Web Speech API, HTML5 Drag & Drop API, HTML5 Canvas Confetti Engine.
 - **Phosphor Icons:** Modern icon set.
+
+---
+
+> Made with ❤️ — Zenith Tasks © 2024
